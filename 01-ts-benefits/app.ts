@@ -10,9 +10,13 @@ function add(n1: number, n2: number, showResult:boolean,pharse:string) {
   }
 }
 
-const number1 = 5; //5.0 본질적으로 같은 숫자
+let number1:number; 
+number1 = 5;//5.0 본질적으로 같은 숫자
 const number2 = 2.8;
 const printResult = true;
-const resultPharse = 'Resulte is: ';
+// TS는 string으로 추론하는데
+let resultPharse = 'Resulte is: ';
+// 숫자로 재할당하려고 시도하면 에러 발생
+// resultPharse = 0;
 
 const result = add(number1, number2,printResult,resultPharse);

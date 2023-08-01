@@ -63,8 +63,10 @@ if (person.role === Role.AUTHOR) {
   console.log("is author");
 }
 
-let favoriteActivities: string[];
-favoriteActivities = ["Sprots"];
+//any : 가장 유연한 타입, 타입스크립트에 어떤것도 이해시키지 않음, 모든종류의 값을 지정
+// TS의 모든 장점을 any가 상쇄시켜 바닐라 JS와 다를것이 없음
+let favoriteActivities: any[];
+favoriteActivities = ["Sprots",true];
 // console.log(person.nickname);
 // 존재하지 않는 프로퍼티에 접근시 에러
 
@@ -80,3 +82,4 @@ for (const hobby of person.hobbies) {
   // Property 'map' does not exist on type 'string'.
   // console.log(hobby.map());
 }
+

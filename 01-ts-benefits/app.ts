@@ -1,14 +1,17 @@
-//union타입
+// type alias: 재사용 가능한 타입 별칭 생성
+type Combinable = number | string;
+type ConversionDescriptor = 'as-number' | 'as-text'
 
+//union타입
 // 입력값을 보다 유연하게 처리하고 싶음
 function combine(
-  input1: number | string,
-  input2: number | string,
+  input1: Combinable,
+  input2: Combinable,
 
   // 유니언 타입을 리터럴 타입과 결합하여 사용
   // 리터럴 타입은 스트링이나 숫자등과 같은 핵심 타입을 기반으로 
   // 아무 문자열이 아니 두 문자열만 특정하여 허용하는 것
-  resultConversation: 'as-number' | 'as-text'
+  resultConversation: ConversionDescriptor
 ) {
   let result;
   if (typeof input1 === "number" && typeof input2 === "number" || resultConversation ==="as-number") {

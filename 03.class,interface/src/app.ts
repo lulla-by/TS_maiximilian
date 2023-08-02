@@ -1,15 +1,16 @@
 class Department {
-  // private 사용: class 즉, 생성된 객체 내부에서만 접근가능
-  // 기본은 public
-  private name: string;
+  // private id : string;
+  // private name: string;
   private employees:string[] = []
 
-  constructor(name: string) {
-    this.name = name;
+  // 필드를 찾은 다음 값을 저장해야 하는 이중 초기화 코드를 한 번에 처리하도록 축약한 것
+  constructor(private id:string, private name: string) {
+    // this.id = id;
+    // this.name = name;
   }
 
   describe(this:Department) {
-    console.log(this.name);
+    console.log(`Department (${this.id}): ${this.name}`);
   }
   addEmployee(employee:string){
     this.employees.push(employee)
@@ -20,7 +21,7 @@ class Department {
   }
 }
 
-const accounting = new Department("Accounting");
+const accounting = new Department("d1","Accounting");
 
 accounting.addEmployee("Max");
 accounting.addEmployee("Jay");

@@ -1,36 +1,20 @@
-function add(n1: number, n2: number) {
-  return n1 + n2;
+// unknown타입 !== any 타입
+// 어떤 사용자가 무엇을 입력할지 알 수 없기 때문에 unknown타입
+// 에러 발생없이 모든값을 할당 할 수 있음, 모~든것이 허용
+let userInput : unknown;
+let userName : string;
+
+userInput= 5;
+userInput ="max"
+
+// unknown은 string에 할당 불가능, Type 'unknown' is not assignable to type 'string'.
+// 하지만 userInput의 타입을 any로 변경하면 타입 확인을 수행하지 않게 하여 에러가 발생하지 않음
+// unknown의 경우에는 조건문으로 타입 확인을 해야함
+
+if(typeof userInput === 'string'){
+  userName= userInput;
 }
 
-function printResult(num: number): void {
-  let text = "Result: " + num;
-  console.log(text);
-}
-function addAndHandler(
-  n1: number,
-  n2: number,
-  callback: (num: number) => void
-) {
-  const result = n1 + n2;
-  callback(result);
-}
-printResult(add(5, 12));
-
-// 이 화살표의 오른쪽에서 원하는 함수의 반환 타입을 지정하여 여기서 저장할 수 있도록 함
-// 두 매개변수를 취하는 any함수를 수용해야한다고 TS가 인식하도록 해줌
-let combineValues: (a: number, b: number) => number;
-
-combineValues = add;
-
-// 위에서 combineValues의 타입을 지정했기 때문에 해당 형식에 맞지않는 printvalues는 에러가 발생함
-// combineValues = printResult
-
-// combineValues를 함수로 실행하려고 밑에서 진행하기 때문에 런타임에서 에러가 발생함
-// 따라서 Function을 타입으로 지정함
-// combineValues = 5;
-console.log(combineValues(8, 8));
-
-// 익명함수 매개변수에 타입을 지정하지 않은 이유는 함수 작성시 callback함수의 매개변수는 number로 설정했기 때문
-addAndHandler(10, 20, (result) => {
-  console.log(result);
-});
+//unknown을 사용해서 unknown값을 고정된 값에 할당할 수 있으므로 unknown이 any보다 낫다
+// 알 수 없는 정보로 타입체크가 가능함
+// 물론 항상 알 수 있는 정보라면 unknown대신 문자열이나 유니언 타입을 쓰는것이 좋음

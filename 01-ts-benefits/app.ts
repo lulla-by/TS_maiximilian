@@ -2,20 +2,23 @@ function add(n1:number, n2:number) {
   return n1+n2
 }
 
-function printResult(num:number) {
+function printResult(num:number):void {
   let text = 'Result: '+num
-  console.log(text);
-  // 반환문이 없을때 => void 반환
-
-  // return 값이 있으면 반환 타입이 추론 됨
-  // return text  
+  console.log(text)
 }
 
-// 타입이 undefined일 때 => 반환은하는데 반환값이 없음 => 실제 값을 반환하지 않을때 사용
-// function printResult(num:number):undefined {
-//   let text = 'Result: '+num
-//   console.log(text);
-// return;
-// }
+printResult(add(5,12))
 
-console.log(printResult(add(5,12))) //undefined => 아무것도 반환하지 않음
+// 이 화살표의 오른쪽에서 원하는 함수의 반환 타입을 지정하여 여기서 저장할 수 있도록 함
+// 두 매개변수를 취하는 any함수를 수용해야한다고 TS가 인식하도록 해줌
+let combineValues:(a:number,b:number)=>number;
+
+combineValues = add;
+
+// 위에서 combineValues의 타입을 지정했기 때문에 해당 형식에 맞지않는 printvalues는 에러가 발생함
+// combineValues = printResult
+
+// combineValues를 함수로 실행하려고 밑에서 진행하기 때문에 런타임에서 에러가 발생함 
+// 따라서 Function을 타입으로 지정함
+// combineValues = 5;
+console.log(combineValues(8,8));

@@ -32,13 +32,23 @@ class ITDepartment extends Department {
 }
 
 class AccountingDepartment extends Department {
+private lastReport: string;
 
+get moreRecentReport(){
+  if(this.lastReport){
+    return console.log(this.lastReport);
+  }else{
+    throw new Error("No report found!")
+  }
+}
   constructor(id: string,private reports:string[]) {
     super(id, "Accuonting");
+    this.lastReport = reports[0];
   }
 
   addReport(text:string){
     this.reports.push(text)
+    this.lastReport = text;
   }
 
   printReport(){
@@ -58,11 +68,16 @@ class AccountingDepartment extends Department {
 }
 
 const accounting = new AccountingDepartment("d2",[])
-accounting.addReport("Something wet wrong")
+
+// *중요* 메서드로서가 아니라 속성으로서 접근해야함!!!
+// accounting.moreRecentReport
+
+accounting.addReport("Something went wrong")
 accounting.printReport()
 accounting.addEmployee("max")
 accounting.addEmployee("anna")
 accounting.printEmployeeInformation()
+accounting.moreRecentReport
 
 const it = new ITDepartment("d1", ["max"]);
 it.addEmployee("Jay");

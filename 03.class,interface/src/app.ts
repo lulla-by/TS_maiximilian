@@ -1,7 +1,7 @@
 class Department {
   // private id : string;
   // private name: string;
-  private employees: string[] = [];
+  protected employees: string[] = [];
 
   // 필드를 찾은 다음 값을 저장해야 하는 이중 초기화 코드를 한 번에 처리하도록 축약한 것
   constructor(private readonly id: string, private name: string) {}
@@ -43,13 +43,26 @@ class AccountingDepartment extends Department {
 
   printReport(){
     console.log(this.reports);
-    
+  }
+
+  addEmployee(name:string){
+    if(name==="max"){
+      return;
+    }
+    //Property 'employees' is private and only accessible within class 'Department'.
+    //private속성이기 때문에 Department 클래스 내부에서만 사용 가능함
+    // Departmente기반의 클래스에서 사용 가능X => Accounting에서 접근할 수 없음
+    //만약 접근할 수 있도록 하면서도 외부에서 변경 불가능한 속성응로 만들고자 한다면  protected 속성으로
+    this.employees.push(name)
   }
 }
 
 const accounting = new AccountingDepartment("d2",[])
 accounting.addReport("Something wet wrong")
 accounting.printReport()
+accounting.addEmployee("max")
+accounting.addEmployee("anna")
+accounting.printEmployeeInformation()
 
 const it = new ITDepartment("d1", ["max"]);
 it.addEmployee("Jay");

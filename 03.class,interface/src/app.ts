@@ -34,13 +34,21 @@ class ITDepartment extends Department {
 class AccountingDepartment extends Department {
 private lastReport: string;
 
-get moreRecentReport(){
+get mostRecentReport(){
   if(this.lastReport){
-    return console.log(this.lastReport);
+    return this.lastReport;
   }else{
     throw new Error("No report found!")
   }
 }
+
+set mostRecentReport(value:string){
+  if(!value){
+    throw new Error("Please pass in a valid value")
+  }
+  this.addReport(value)
+}
+
   constructor(id: string,private reports:string[]) {
     super(id, "Accuonting");
     this.lastReport = reports[0];
@@ -69,15 +77,18 @@ get moreRecentReport(){
 
 const accounting = new AccountingDepartment("d2",[])
 
-// *중요* 메서드로서가 아니라 속성으로서 접근해야함!!!
-// accounting.moreRecentReport
+// *중요* getter는 메서드가 아니라 속성으로서 접근해야함!!!
+// accounting.mostRecentReport
+// *중요* setter는 메서드가 아니라 값으로 접근해야 함
+// accounting.mostRecentReport = "" // 에러 반환
+accounting.mostRecentReport = "Year end Report"
 
 accounting.addReport("Something went wrong")
 accounting.printReport()
 accounting.addEmployee("max")
 accounting.addEmployee("anna")
 accounting.printEmployeeInformation()
-accounting.moreRecentReport
+accounting.mostRecentReport
 
 const it = new ITDepartment("d1", ["max"]);
 it.addEmployee("Jay");

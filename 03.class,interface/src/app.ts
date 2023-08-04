@@ -43,6 +43,8 @@ class ITDepartment extends Department {
 
 class AccountingDepartment extends Department {
 private lastReport: string;
+//3. private 속성의 static instance를 입력
+private static instance:AccountingDepartment;
 
 get mostRecentReport(){
   if(this.lastReport){
@@ -59,9 +61,21 @@ set mostRecentReport(value:string){
   this.addReport(value)
 }
 
-  constructor(id: string,private reports:string[]) {
+//1. 클래스 내에서만 접근 가능하도록 private 추가
+  private constructor(id: string,private reports:string[]) {
     super(id, "Accuonting");
     this.lastReport = reports[0];
+  }
+
+  //2. 클래스 자체에서 정적 메소드를 호출
+  // 이 클래스의 인ㄴ스턴스가 이미 있는지 확인하고 새 인스턴스를 반환
+  static getInstance(){
+    if(AccountingDepartment.instance){
+      return this.instance;
+    }
+    // 이제 클래스 메소드 안에 있기 때문에 사용이 가능
+    this.instance = new AccountingDepartment("d2",[])
+    return this.instance;
   }
 
   addReport(text:string){
@@ -94,7 +108,12 @@ const employee1 = Department.createEmployee("new Employee");
 console.log(employee1, Department.fiscalYear);
 
 
-const accounting = new AccountingDepartment("d2",[])
+// const accounting = new AccountingDepartment("d2",[]);
+const accounting = AccountingDepartment.getInstance();
+const accounting2 = AccountingDepartment.getInstance();
+
+console.log(accounting, accounting2);
+
 
 // *중요* getter는 메서드가 아니라 속성으로서 접근해야함!!!
 // accounting.mostRecentReport

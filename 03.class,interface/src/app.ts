@@ -1,10 +1,17 @@
 class Department {
+ static fiscalYear = 2020;
   // private id : string;
   // private name: string;
   protected employees: string[] = [];
 
   // 필드를 찾은 다음 값을 저장해야 하는 이중 초기화 코드를 한 번에 처리하도록 축약한 것
   constructor(private readonly id: string, private name: string) {}
+
+
+  // static키워드를 사용하여 instance화 시키지 않음
+  static createEmployee(name:string){
+    return {name:name}
+  }
 
   describe(this: Department) {
     console.log(`Department (${this.id}): ${this.name}`);
@@ -74,6 +81,11 @@ set mostRecentReport(value:string){
     this.employees.push(name)
   }
 }
+
+
+const employee1 = Department.createEmployee("new Employee");
+console.log(employee1, Department.fiscalYear);
+
 
 const accounting = new AccountingDepartment("d2",[])
 

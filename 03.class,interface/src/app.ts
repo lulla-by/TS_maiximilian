@@ -1,11 +1,11 @@
-class Department {
+abstract class Department {
  static fiscalYear = 2020;
   // private id : string;
   // private name: string;
   protected employees: string[] = [];
 
   // 필드를 찾은 다음 값을 저장해야 하는 이중 초기화 코드를 한 번에 처리하도록 축약한 것
-  constructor(private readonly id: string, private name: string) {}
+  constructor(protected readonly id: string, public name: string) {}
 
 
   // static키워드를 사용하여 instance화 시키지 않음
@@ -13,9 +13,8 @@ class Department {
     return {name:name}
   }
 
-  describe(this: Department) {
-    console.log(`Department (${this.id}): ${this.name}`);
-  }
+  // 이 메소드의 형태와 메소드의 구조가 어떤 것ㄷ인지를 정의하고 있을 뿐, 그 외에는 아무것도 정하지 않음
+  abstract describe(this: Department): void;
   addEmployee(employee: string) {
     //Cannot assign to 'id' because it is a read-only property.
     // this.id = 3;
@@ -35,6 +34,10 @@ class ITDepartment extends Department {
     super(id, "IT");
     // 특수한 속성을 할당하려면 super부터 호출해야 함
     this.admins = admins;
+  }
+
+  describe() {
+    console.log("IT Department - ID: "+ this.id);
   }
 }
 
@@ -80,6 +83,10 @@ set mostRecentReport(value:string){
     //만약 접근할 수 있도록 하면서도 외부에서 변경 불가능한 속성응로 만들고자 한다면  protected 속성으로
     this.employees.push(name)
   }
+
+  describe(){
+    console.log("Accounting Department - ID: "+this.id);
+  }
 }
 
 
@@ -93,19 +100,21 @@ const accounting = new AccountingDepartment("d2",[])
 // accounting.mostRecentReport
 // *중요* setter는 메서드가 아니라 값으로 접근해야 함
 // accounting.mostRecentReport = "" // 에러 반환
-accounting.mostRecentReport = "Year end Report"
+// accounting.mostRecentReport = "Year end Report"
 
-accounting.addReport("Something went wrong")
-accounting.printReport()
+// accounting.addReport("Something went wrong")
+// accounting.printReport()
 accounting.addEmployee("max")
 accounting.addEmployee("anna")
-accounting.printEmployeeInformation()
-accounting.mostRecentReport
+// accounting.printEmployeeInformation()
+// accounting.mostRecentReport
+accounting.describe()
 
 const it = new ITDepartment("d1", ["max"]);
 it.addEmployee("Jay");
 it.addEmployee("henry");
+it.describe();
 
 it.printEmployeeInformation();
 it.describe();
-console.log(it);
+// console.log(it);

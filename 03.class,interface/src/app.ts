@@ -1,7 +1,10 @@
 // instance : 객체의 타입을 확인
 //인터페이스는 객체의 구조를 설명하기 위해서만 사용
 interface Greetable {
-  name: string;
+  //public, private은 사용 X
+  // readonly를 추가하여 인터페이스를 기반으로 구축하는 모든 객체의 속성이 한번만 설정되어야하며
+  // 이후에는 읽기 전용으로 만들어서 객체가 초기화되면 변경할 수 없도록 할 수 있음
+  readonly name: string;
 
   greet(phrase:string):void;
 }
@@ -29,4 +32,5 @@ let user1 : Greetable;
 
 user1.greet("Hi there. i'm")
 console.log(user1);
+
 

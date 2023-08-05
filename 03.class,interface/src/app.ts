@@ -1,38 +1,42 @@
-interface Named{
+
+// type지정
+// type AddFn = (a: number, b: number) => number;
+
+// interface 지정
+interface AddFn {
+  // TS는 인터페이스의 이 익명 함수의 특수한 구문을 이해하며 
+  // 이 인터페이스를 함수 타입으로서 사용하고자 하는 경우 함수의 형태가 이와 같다는 것을 이해함
+  (a:number,b:number):number;
+}
+
+let add: AddFn;
+add = (a, b) => a + b;
+add(6, 4);
+
+interface Named {
   readonly name: string;
-
 }
 
-// 다수의 인터페이스를 상속받고 싶으면 다음과 같이 쉼표를 사용
-// interface Greetable extends Named,  anotherInterfaces {
-// ! 클래스의 경우에는 상속을 사용하는 경우 하나의 클래스로부터만 상속할 수 있고 다수는 안됌 !
-
-// 첫번째 확장방법 extends Named
 interface Greetable extends Named {
-  greet(phrase:string):void;
+  greet(phrase: string): void;
 }
 
-// 두번째 확장방법 쉼표 사용
-// class Person implements Greetable, Named{
 class Person implements Greetable {
- name: string;
- age:number;
+  name: string;
+  age: number;
 
- constructor(name:string, age:number){
- this.name = name
- this.age=age;
- }
+  constructor(name: string, age: number) {
+    this.name = name;
+    this.age = age;
+  }
 
- greet(phrase:string){
-  console.log(phrase+ " " + this.name);
- }
-
+  greet(phrase: string) {
+    console.log(phrase + " " + this.name);
+  }
 }
 
-let user1 : Greetable;
-user1 = new Person("max",24)
+let user1: Greetable;
+user1 = new Person("max", 24);
 
-user1.greet("Hi there. i'm")
+user1.greet("Hi there. i'm");
 console.log(user1);
-
-

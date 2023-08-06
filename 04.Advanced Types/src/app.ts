@@ -21,13 +21,9 @@ const e1: ElevatedEmployee = {
 type Combinable = string | number;
 type Numeric = number | boolean;
 
-// TS는 Universal을 숫자형 타입으로 간주
-//  이 타입이 우리가 입력한 유일한 인터섹션 타입이기 때문
 type Universal = Combinable & Numeric;
 
 function add(a: Combinable, b: Combinable) {
-  // if문 라인을 타입가드라고 함. 이는 유니온 타입이 지닌 유연성을 활용할 수 있게 해주며
-  // 런타임 시 코드가 정확하게 작동하게 해줌
   if (typeof a === "string" || typeof b === "string") {
     return a.toString() + b.toString();
   }
@@ -65,22 +61,42 @@ class Truck {
   }
 }
 
-type Vehicle =Car | Truck;
+type Vehicle = Car | Truck;
 
-const v1 =new Car();
-const v2 =new Truck();
+const v1 = new Car();
+const v2 = new Truck();
 
-function useVehicle (vehicle:Vehicle) {
+function useVehicle(vehicle: Vehicle) {
   vehicle.drive();
-  // 1. in - in을 사용
-  //if("loadCargo" in vehicle){
-  //   vehicle.loadCargo(1000)
-  // }
-
-  // 2. instanceof - Vehicle이 Truck의 인스턴스인지 확인 (in 보다 오타를 낮출 수 있음)
-  if(vehicle instanceof Truck){
-    vehicle.loadCargo(1000)
+  // instanceof는 interface는 사용 X
+  if (vehicle instanceof Truck) {
+    vehicle.loadCargo(1000);
   }
 }
-useVehicle(v1)
-useVehicle(v2)
+// useVehicle(v1)
+// useVehicle(v2)
+
+interface Bird {
+  type: "bird";
+  flyingSpeed: number;
+}
+interface Horse {
+  type: "horse";
+  runningSpeed: number;
+}
+
+type Animal = Bird | Horse;
+
+function moveAnimal(animal: Animal) {
+  let speed;
+  switch (animal.type) {
+    case "bird":
+      speed = animal.flyingSpeed;
+      break;
+    case "horse":
+      speed = animal.runningSpeed;
+  }
+  console.log("Moving at speed: " + speed);
+}
+moveAnimal({type:"bird",flyingSpeed:300})
+moveAnimal({type:"horse",runningSpeed:300})

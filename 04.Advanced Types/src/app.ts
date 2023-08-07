@@ -100,3 +100,20 @@ function moveAnimal(animal: Animal) {
 }
 moveAnimal({type:"bird",flyingSpeed:300})
 moveAnimal({type:"horse",runningSpeed:300})
+
+
+// null이 아닌 HTMLinputElement 타입임을 형변환을 사용하여 TS에 알려야함, 형변환하는 두가지 방법중 하나를 선택하여 프로젝트 전체의 일관성을 유지
+// 첫번째 방법
+// const userInputElement = <HTMLInputElement>document.getElementById("user-input")!;
+// 두번째 방법
+const userInputElement = <HTMLInputElement>document.getElementById("user-input") as HTMLInputElement;
+
+userInputElement.value = "Hi there!"
+
+
+// 느낌표를 사용하여 느낌표 앞의 표현식을 null로 반환하지 않겠다고 TS에게 인식
+// const userInputElement = <HTMLInputElement>document.getElementById("user-input");
+// if(userInputElement){
+//   (userInputElement as HTMLInputElement).value = "Hi there"
+// }
+

@@ -46,3 +46,15 @@ if(element.length === 1){
 
 console.log(countAndDescribe("Hi There!"));
 console.log(countAndDescribe(["Sport!","Cooking"]));
+
+
+// keyof:  키워드를 지니는 제네릭 타입을 사용하여 이와 같은 정확한 구조를 갖고자 한다는 것을 타입스크립트에게 알려줌
+function  extractAndConvert<T extends object, U extends keyof T>(obj:T,key:U) {
+  return obj[key]
+}
+
+//타입스크립트에게 첫 번째 매개변수가 모든 유형의 객체여야 하고 
+// 두 번째 매개변수는 해당 객체의 모든 유형의 키여야 한다고 입력했기 때문.
+// console.log(extractAndConvert({},"name"));  //Error
+
+console.log(extractAndConvert({name:"jay"},"name"));  //정상 출력

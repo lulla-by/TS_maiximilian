@@ -17,10 +17,12 @@ const names: Array<string> = [];
 // });
 
 //Object.assign() 메서드는 출처 객체들의 모든 열거 가능한 자체 속성을 복사해 대상 객체에 붙여넣고 그 후 대상 객체를 반환
-function merge<T extends object, U > (objA: T, objB: U){
+//제네릭 타입 다음에 있는 홑화살괄호 내에 extends를 입력 및 특정 제약 조건을 설정
+function merge<T extends object, U extends object > (objA: T, objB: U){
   return Object.assign(objA, objB);
 }
 
 // const mergedObj = merge({name:"max"},{age:30}) as {name:string,age:number}
-const mergedObj = merge({ name: "max",hobbies:["sports"] }, { age: 30 });
+const mergedObj = merge({ name: "max",hobbies:["sports"] },{age:30});
 console.log(mergedObj);
+console.log(mergedObj.name);

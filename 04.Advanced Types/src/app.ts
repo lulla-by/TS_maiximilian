@@ -117,3 +117,17 @@ userInputElement.value = "Hi there!"
 //   (userInputElement as HTMLInputElement).value = "Hi there"
 // }
 
+interface ErrorContainer{
+  // 인덱스 타입
+  // [이름:속성의 값타입]: 값의 타입 
+  [prop:string]:string;
+  // 에러 컨테이너 기반의 이 객체에 추가되는 모든 속성은 
+  // 문자열로 해석할 수 있는 속성 이름을 지녀야 한다는 것과 
+  // 해당 속성에 대한 값 역시 문자열이어야 한다는 것만 알고 있다고 입력
+}
+
+const errorBag:ErrorContainer = {
+  // id:1  //Type 'number' is not assignable to type 'string'
+  email:"Not a valid email",
+  username:"Must start with a capital character!"
+}

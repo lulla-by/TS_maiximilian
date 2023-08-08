@@ -2,7 +2,7 @@
 
 // Generic : 제네릭 타입은 다른 타입과 연결되는 종류인데 다른 타입이 어떤 타입이어야 하는지에 대해서는 크게 상관하지 않음.
 // 홑화살괄호 내에 배열에 전달되어야 하는 데이터의 타입을 지정
-const names: Array<string> = [];
+// const names: Array<string> = [];
 //여기 저장하는 데이터가 문자열임을 우리가 알고 있다면 배열 내의 요소에 접근할 때마다
 // 문자열로 작업을 수행할 수 있고 이와 같은 문자열 메소드를 호출
 // 타입스크립트가 이 배열이 문자열을 지닌다는 것을 알고 있으므로 에러는 발생하지 않음.
@@ -62,31 +62,29 @@ console.log(extractAndConvert({ name: "jay" }, "name")); //정상 출력
 
 //DataStorage가 이런 타입하고만 작동해야 한다고 입력한 것이기에 객체는 더 이상 허용되지 않음
 class DataStorage<T extends string | number | boolean> {
-
   //T 타입의 배열을 입력함으로써 제네릭 타입의 데이터가 저장되도록함
   private data: T[] = [];
 
-  addItem(item:T) {
+  addItem(item: T) {
     this.data.push(item);
   }
-  removeItem(item:T){
-    if(this.data.indexOf(item)===-1){
+  removeItem(item: T) {
+    if (this.data.indexOf(item) === -1) {
       return;
     }
-    this.data.splice(this.data.indexOf(item),1)
+    this.data.splice(this.data.indexOf(item), 1);
   }
-  getItems(){
-    return [...this.data]
+  getItems() {
+    return [...this.data];
   }
 }
 
-
 // 이 제네릭 타입을 문자열 타입으로 설정하면 textStorage에서 addItem을 호출
 // 숫자를 추가하려 하면 에러가 발생. 문자열만 저장하는 dataStorage를 입력했기 때문
-const textStorage = new DataStorage<string>()
-textStorage.addItem("Max")
-textStorage.addItem("Manu")
-textStorage.removeItem("Max")
+const textStorage = new DataStorage<string>();
+textStorage.addItem("Max");
+textStorage.addItem("Manu");
+textStorage.removeItem("Max");
 console.log(textStorage.getItems());
 
 // const objStorage = new DataStorage<object>();
@@ -96,3 +94,25 @@ console.log(textStorage.getItems());
 // objStorage.removeItem(obj1)
 // console.log(objStorage.getItems());
 
+interface CourseGoal {
+  title: string;
+  description: string;
+  completeUntil: Date;
+}
+
+function createCourseGoal(
+  title: string,
+  description: string,
+  date: Date
+): CourseGoal {
+  //파셜 타입은 타입스크립트에게 중괄호 쌍이 courseGoal이 되는 객체임을 알려줌
+  let courseGoal:Partial<CourseGoal> = {}
+  courseGoal.title = title;
+  courseGoal.description = description;
+  courseGoal.completeUntil = date;
+  return courseGoal as CourseGoal
+}
+
+const names:Readonly<string[]> = ["Max","Anna"]
+// names.push("Manu")
+// names.pop()

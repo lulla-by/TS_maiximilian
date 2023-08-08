@@ -49,6 +49,13 @@ const fetchedIserData = {
 }
 console.log(fetchedIserData?.job?.title);
 
+const userInput = 0;
+
+const storedData = userInput || "DEFAULT";
+console.log(storedData) //DEFAULT
+
+const storedData2 = userInput ?? "DEFAULT";
+console.log(storedData2) //0
 
 // // 두 사용자 정의 객체 타입을 사용한 유니언 타입 생성
 // type UnknownEmployee = Employee | Admin;

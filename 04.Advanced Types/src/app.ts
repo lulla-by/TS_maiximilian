@@ -39,6 +39,16 @@ function add(a: Combinable, b: Combinable) {
 const result = add("max","jay")
 result.split(" ")
 
+const fetchedIserData = {
+  id:"u1",
+  name:"max",
+  job:{
+    title:"CEO",
+    description:"My own company"
+  }
+}
+console.log(fetchedIserData?.job?.title);
+
 
 // // 두 사용자 정의 객체 타입을 사용한 유니언 타입 생성
 // type UnknownEmployee = Employee | Admin;

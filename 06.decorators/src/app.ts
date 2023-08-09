@@ -1,13 +1,16 @@
 function Logger(logString:string){
+  console.log("로거팩토리"); //1
   return function (constructor:Function){
-    console.log(logString);
-    console.log(constructor);
+    console.log(logString); //5
+    console.log(constructor); //6
   }
 }
 
 
 function WithTemplate(template:string, hookId:string){
+  console.log("탬플릿팩토리");//2
 return function(constructor:any){
+  console.log("탬플릿 데코레이터 함수 실행");//3
   const hookEl = document.getElementById(hookId)
   const p  = new constructor()
   if(hookEl){
@@ -17,16 +20,23 @@ return function(constructor:any){
 }
 }
 
+
+// 우리가 팩토리 함수를 명시한 순서 내에서 실 데코레이터가 나타남
+// 하지만 실 데코레이터 함수의 실행은 밑에서부터 일어남
+
 // @Logger("LOGGING - PERSON")
+@Logger("로거 데코레이터 함수 실행")
 @WithTemplate("<h1>My Person Object</h1>","app")
 class Person {
   name="Max";
 
   constructor(){
-    console.log("Creating person object...,");
+    console.log("Creating person object..."); //4
   }
 }
 
 const pers = new Person();
 
-console.log(pers);
+console.log(pers); //7
+
+

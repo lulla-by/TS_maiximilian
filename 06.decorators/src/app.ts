@@ -80,11 +80,11 @@ function Log4(target: any, name: string | Symbol, position: number) {
 }
 
 class Product {
-  // @Log
+  @Log  // 반환하지만 TS가 무시하는 데코레이터
   title: string;
   private _price: number;
 
-  // @Log2
+  @Log2 // 반환하는 데코레이터
   set price(val: number) {
     if (val > 0) {
       this._price = val;
@@ -98,12 +98,49 @@ class Product {
     this._price = p;
   }
 
-  // @Log3
-  // getPriceWithTax(@Log4 tax: number) {
-  getPriceWithTax(tax: number) {
+  @Log3 // 반환하는 데코레이터
+  // Log4: 반환하지만 TS가 무시하는 데코레이터
+  getPriceWithTax(@Log4 tax: number) {
     return this._price * (1 + tax);
   }
 }
 
 let book1 = new Product("book1", 19);
 let book2 = new Product("book2", 29);
+
+
+  // 어디로 호출하든 상관 없이 호출될 때마다 객체에 속하게 됨
+function AutoBind(_target:any,_methodName:string,descriptor:PropertyDescriptor){
+  
+  // 항상 this 키워드를 이 메서드가 아직 속해 있는 객체로 설정
+  const originalMethod = descriptor.value;
+  
+  const adjDescriptor:PropertyDescriptor = {
+    configurable:true,
+    enumerable:false,
+    get(){
+      // console.log(this);     //Printer class
+      // const boundFn = originalMethod    //undefined
+    const boundFn = originalMethod.bind(this)  //This work
+    return boundFn;
+  }
+}
+return adjDescriptor;
+}
+
+
+class Printer {
+  message = "This work";
+
+
+  @AutoBind
+  showMessage(){
+    console.log(this.message);
+  }
+}
+
+const p = new Printer()
+
+const button = document.querySelector("button")!;
+
+button.addEventListener("click",p.showMessage)

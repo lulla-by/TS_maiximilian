@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState} from "react";
+// import {Route} from 'react-router-dom'
 import TodoList from "./components/TodoList";
 import NewTodo from "./components/NewTodo";
 import { Todo } from "./todo.models";
@@ -24,6 +25,7 @@ const App: React.FC = () => {
       return prevTodos.filter((todo) => todo.id !== todoId);
     });
   };
+
   return (
     <div className="App">
       {/* A component that adds todo */}

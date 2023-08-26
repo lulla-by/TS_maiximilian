@@ -1,8 +1,9 @@
 import React, { useRef } from "react";
+import "./NewTodo.css";
 
 type NewTodoProps = {
-  onAddTodo: (todoText:string)=>void;
-}
+  onAddTodo: (todoText: string) => void;
+};
 // type생성하여 props에 대한 정의
 const NewTodo: React.FC<NewTodoProps> = (props) => {
   const textInputRef = useRef<HTMLInputElement>(null);
@@ -11,11 +12,12 @@ const NewTodo: React.FC<NewTodoProps> = (props) => {
     event.preventDefault();
     const enteredText = textInputRef.current!.value;
     props.onAddTodo(enteredText);
+    textInputRef.current!.value=""
   };
 
   return (
     <form onSubmit={todoSubmitHandler}>
-      <div>
+      <div className="form-control">
         <label htmlFor="todo-text">Todo Text</label>
         <input type="text" id="todo-text" ref={textInputRef} />
       </div>
